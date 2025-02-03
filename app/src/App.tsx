@@ -38,8 +38,8 @@ function App() {
   },[]);
   return (
     <>
-      <div className='w-full'>
-        <div className=''>
+      <div className='flex items-center justify-center w-screen'>
+        <div className='max-w-[600px] shadow-2xl'>
           <Navbar />
           <Dashboard />
         </div>
