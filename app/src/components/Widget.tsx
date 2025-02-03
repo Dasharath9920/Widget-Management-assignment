@@ -3,7 +3,7 @@ import { Actions, Themes, WidgetType } from '../constants';
 import { MyContext } from '../ContextProvider';
 import { getWidgetComponent } from '../helper';
 
-const Widget = ({widget, openModal, removeWidget}: {widget: WidgetType, openModal: (shouldOpen: boolean) => void, removeWidget: (widgetId: string) => void}) => {
+const Widget = ({widget, openModal, removeWidget, isResizing}: {widget: WidgetType, openModal: (shouldOpen: boolean) => void, removeWidget: (widgetId: string) => void, isResizing: (isResizing: boolean) => void}) => {
 
    const { state, dispatch } = useContext(MyContext);
    const isDarkTheme = state.theme === Themes.DARK;
@@ -22,6 +22,9 @@ const Widget = ({widget, openModal, removeWidget}: {widget: WidgetType, openModa
 
    const handleMouseDown = (e: React.MouseEvent) => {
       e.preventDefault();
+      e.stopPropagation();
+      
+      isResizing(true);
 
       const initialX = e.clientX;
       const initialY = e.clientY;
@@ -53,6 +56,8 @@ const Widget = ({widget, openModal, removeWidget}: {widget: WidgetType, openModa
             payload: widgetsAdded
          });
 
+         isResizing(false);
+
          document.removeEventListener('mousemove', handleMouseMove);
          document.removeEventListener('mouseup', handleMouseUp);
       }
@@ -65,7 +70,7 @@ const Widget = ({widget, openModal, removeWidget}: {widget: WidgetType, openModa
     <div 
       className={`relative rounded-2xl p-3 overflow-scroll group ${isAddButtonWidget? 'flex items-center justify-center text-5xl transition-all duration-200 ease-in-out hover:text-6xl': ''} ${isDarkTheme? 'bg-gray-900 text-white': 'bg-blue-950 text-white'}`} onClick={openAddWidgetModal}
       style={{height: `${height}px`, width: `${width}px`}}>
-      {!isAddButtonWidget && <div className='absolute bottom-0 right-0 w-5 h-5 bg-blue-400 cursor-se-resize' onMouseDown={handleMouseDown}></div>}
+      {!isAddButtonWidget && <div className='absolute bottom-0 right-0 w-5 h-5 bg-blue-400 cursor-se-resize' onMouseEnter={() => isResizing(true)} onMouseLeave={() => isResizing(false)} onMouseDown={handleMouseDown}></div>}
       <button
          className={`absolute opacity-30 right-3 top-3 leading-none rounded-2xl w-3 h-1 bg-red-400 font-bold text-3xl transition-transform duration-200 cursor-pointer ease-in-out group-hover:opacity-90 group-hover:scale-150 ${isAddButtonWidget? 'hidden': ''}`} onClick={() => removeWidget(widget.id)}></button>
       {isAddButtonWidget ? '+': Component}

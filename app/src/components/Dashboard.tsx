@@ -11,6 +11,7 @@ const Dashboard = () => {
 
    const [widgets, setWidgets] = useState([...state.addedWidgets]);
    const [openModal, setOpenModal] = useState(false);
+   const [isResizing, setIsResizing] = useState(false);
 
    const handleDragEnd = (data: any) => {
       if(!data.destination) return;
@@ -45,16 +46,16 @@ const Dashboard = () => {
                <div className='flex items-center'>
                   <div className='flex flex-wrap gap-2 transition-transform duration-300 ease-in-out' {...provided.droppableProps} ref={provided.innerRef}>
                      {widgets.map((widget, index) => {
-                        return <Draggable key={widget.id} draggableId={widget.id} index={index}>
+                        return <Draggable key={widget.id} draggableId={widget.id} index={index} isDragDisabled={isResizing}>
                            {(provided) => (
                               <div className='cursor-grab' {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-                                 <Widget widget={widget} openModal={setOpenModal} removeWidget={handleRemoveWidget}/>
+                                 <Widget widget={widget} openModal={setOpenModal} removeWidget={handleRemoveWidget} isResizing={setIsResizing}/>
                               </div>
                            )}
                         </Draggable>
                      })}
                      <div className='cursor-pointer'>
-                        <Widget widget={addWidget} openModal={setOpenModal} removeWidget={handleRemoveWidget}/>
+                        <Widget widget={addWidget} openModal={setOpenModal} removeWidget={handleRemoveWidget} isResizing={setIsResizing}/>
                      </div>
                      <AddWidgetModal isOpen={openModal} closeModal={() => setOpenModal(false)}/>
                   </div>
