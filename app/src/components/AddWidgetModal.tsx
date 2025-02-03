@@ -26,13 +26,13 @@ const AddWidgetModal = ({ isOpen, closeModal}: { isOpen: boolean, closeModal: ()
   
     <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
       <div className="flex min-h-full items-center justify-center p-4 sm:p-0">
-        <div className={`relative transform overflow-hidden rounded-lg text-left transition-all ${isDarkTheme? 'bg-blue-950/60 text-white': 'bg-white'}`}>
+        <div className={`relative transform overflow-hidden rounded-lg text-left transition-all ${isDarkTheme? 'bg-blue-950/80 text-white': 'bg-white'}`}>
           <div className={`flex flex-col min-w-[300px] px-4 pt-5 pb-4 sm:p-6 sm:pb-4`}>
             <div className={`flex flex-col ${filteredWidgets.length? '': 'hidden'}`}>
               <h1 className={`text-base text-center font-semibold mb-5 ${isDarkTheme? 'text-white': ''}`}>Select widget</h1>
               <ul className='flex flex-wrap gap-2 max-h-[300px] overflow-y-scroll p-1'>
                 {filteredWidgets.map((widget) => (
-                    <li key={widget.id} className={`relative p-2 rounded-xl text-[0.7rem] h-[80px] w-[80px] cursor-pointer transition-transform duration-300 ease-in-out hover:scale-102 group ${isDarkTheme? 'bg-black text-gray-200': 'bg-blue-950 text-white'}`} onClick={() => addWidget(widget)}>
+                    <li key={widget.id} className={`relative p-2 rounded-xl text-[0.7rem] h-[80px] w-[80px] cursor-pointer transition-transform duration-300 ease-in-out hover:scale-102 group ${isDarkTheme? 'bg-blue-900 text-gray-200': 'bg-blue-950 text-white'}`} onClick={() => addWidget(widget)}>
                       <span className='group-hover:opacity-20'>{widget.title}</span>
                       <span className='absolute inset-0 flex items-center justify-center text-2xl font-bold opacity-0 group-hover:opacity-100'>+</span>
                     </li>
