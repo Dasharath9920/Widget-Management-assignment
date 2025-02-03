@@ -36,6 +36,12 @@ export type WidgetType = {
    data?: any
 }
 
+export type SavedWidgetType = {
+   id: string,
+   width: number,
+   height: number
+}
+
 export const addWidget = {
    id: 'add-widget',
   type: 'controls'

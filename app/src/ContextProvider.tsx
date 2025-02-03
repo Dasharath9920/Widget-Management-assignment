@@ -25,9 +25,9 @@ export const reducer = (state: StateType, action: ActionType): StateType => {
       });
       const savedWidgets = JSON.stringify(widgetIds);
       localStorage.setItem(savedWidgetsKey,savedWidgets);
-   } else {
-      const savedTheme = JSON.stringify(action.payload);
-      localStorage.setItem(savedThemeKey, savedTheme);
+   } else if(action.type === Actions.TOGGLE_THEME) {
+      const savedTheme = action.payload === Themes.LIGHT? String(Themes.DARK): String(Themes.LIGHT);
+      localStorage.setItem(savedThemeKey, JSON.stringify(savedTheme));
    }
    switch(action.type) {
       case Actions.TOGGLE_THEME: {

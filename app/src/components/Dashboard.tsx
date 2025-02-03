@@ -1,12 +1,13 @@
 import { useContext, useEffect, useState } from 'react'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import Widget from './Widget';
-import { addWidget, Actions } from '../constants';
+import { addWidget, Actions, Themes } from '../constants';
 import AddWidgetModal from './AddWidgetModal';
 import { MyContext } from '../ContextProvider';
 
 const Dashboard = () => {
    const { state, dispatch } = useContext(MyContext);
+   const isDarkTheme = state.theme === Themes.DARK;
 
    const [widgets, setWidgets] = useState([...state.addedWidgets]);
    const [openModal, setOpenModal] = useState(false);
@@ -18,6 +19,10 @@ const Dashboard = () => {
       const [movedItem] = newItems.splice(data.source.index,1);
       newItems.splice(data.destination.index,0,movedItem);
       setWidgets(newItems);
+      dispatch({
+         type: Actions.UPDATE_WIDGETS,
+         payload: newItems
+      })
    }
 
    const handleRemoveWidget = (widgetId: string) => {
@@ -33,7 +38,7 @@ const Dashboard = () => {
    }, [state.addedWidgets]);
 
   return (
-    <div className='p-3'>
+    <div className={`p-3 h-screen ${isDarkTheme? 'bg-blue-950/70': 'white'}`}>
       <DragDropContext onDragEnd={handleDragEnd}>
          <Droppable droppableId='widget-container'>
             {(provided) => (

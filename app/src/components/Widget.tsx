@@ -1,11 +1,12 @@
 import React, { useContext, useState } from 'react'
-import { Actions, WidgetType } from '../constants';
+import { Actions, Themes, WidgetType } from '../constants';
 import { MyContext } from '../ContextProvider';
 import { getWidgetComponent } from '../helper';
 
 const Widget = ({widget, openModal, removeWidget}: {widget: WidgetType, openModal: (shouldOpen: boolean) => void, removeWidget: (widgetId: string) => void}) => {
 
    const { state, dispatch } = useContext(MyContext);
+   const isDarkTheme = state.theme === Themes.DARK;
 
    const isAddButtonWidget: boolean = widget.id === 'add-widget';
    const [width, setWidth] = useState(widget.size?.width || 120);
@@ -62,7 +63,7 @@ const Widget = ({widget, openModal, removeWidget}: {widget: WidgetType, openModa
 
   return (
     <div 
-      className={`relative rounded-2xl text-blue-50 bg-blue-950 p-3 overflow-scroll group ${isAddButtonWidget? 'flex items-center justify-center text-5xl transition-all duration-200 ease-in-out hover:text-6xl': ''}`} onClick={openAddWidgetModal}
+      className={`relative rounded-2xl p-3 overflow-scroll group ${isAddButtonWidget? 'flex items-center justify-center text-5xl transition-all duration-200 ease-in-out hover:text-6xl': ''} ${isDarkTheme? 'bg-gray-900 text-white': 'bg-blue-950 text-white'}`} onClick={openAddWidgetModal}
       style={{height: `${height}px`, width: `${width}px`}}>
       {!isAddButtonWidget && <div className='absolute bottom-0 right-0 w-5 h-5 bg-blue-400 cursor-se-resize' onMouseDown={handleMouseDown}></div>}
       <button

@@ -3,30 +3,29 @@ import './App.css'
 import Dashboard from './components/Dashboard'
 import Navbar from './components/Navbar'
 import { MyContext } from './ContextProvider'
-import { Actions, savedThemeKey, savedWidgetsKey, Themes, WidgetType } from './constants'
+import { Actions, savedThemeKey, savedWidgetsKey, SavedWidgetType, Themes, WidgetType } from './constants'
 import widgets from './data'
 
 function App() {
   const { dispatch } = useContext(MyContext);
 
   const updateState = () => {
-    const savedWidgetData = localStorage.getItem(savedWidgetsKey)? JSON.parse(localStorage.getItem(savedWidgetsKey)!): [];
+    const savedWidget: SavedWidgetType[] = localStorage.getItem(savedWidgetsKey)? JSON.parse(localStorage.getItem(savedWidgetsKey)!): [];
 
-    let savedWidgets: WidgetType[] = widgets.filter((widget: WidgetType) => savedWidgetData.some((_widget: WidgetType) => _widget.id === widget.id));
+    const savedWidgets: WidgetType[] = savedWidget.filter((savedWidget: SavedWidgetType) => widgets.some(widget => widget.id === savedWidget.id)).map((widget: SavedWidgetType) => {
+      let savedWidget = widgets.find((savedWidget: WidgetType) => savedWidget.id === widget.id);
+      savedWidget!.size!.width = widget.width;
+      savedWidget!.size!.height = widget.height;
+      return savedWidget!;
+    });
 
-    savedWidgets = savedWidgets.map((widget: WidgetType) => {
-      let savedWidget = savedWidgetData.find((savedWidget: WidgetType) => savedWidget.id === widget.id);
-      widget.size!.width = savedWidget.width;
-      widget.size!.height = savedWidget.height;
-      return widget;
-    })
     const savedTheme = localStorage.getItem(savedThemeKey)? JSON.parse(localStorage.getItem(savedThemeKey)!): Themes.LIGHT;
-
 
     dispatch({
       type: Actions.TOGGLE_THEME,
-      payload: savedTheme
-    });
+      payload: savedTheme === Themes.DARK? Themes.LIGHT: Themes.DARK
+    })
+
     if(savedWidgets.length){
       dispatch({
         type: Actions.UPDATE_WIDGETS,
