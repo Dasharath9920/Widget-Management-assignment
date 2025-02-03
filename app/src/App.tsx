@@ -39,7 +39,7 @@ function App() {
   return (
     <>
       <div className='flex items-center justify-center w-screen'>
-        <div className='max-w-[600px] shadow-2xl'>
+        <div className='max-w-[600px] min-w-[300px] lg:min-w-[400px] shadow-2xl'>
           <Navbar />
           <Dashboard />
         </div>
