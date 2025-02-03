@@ -38,7 +38,7 @@ function App() {
   },[]);
   return (
     <>
-      <div className='w-full lg:mt-10'>
+      <div className='w-full'>
         <div className=''>
           <Navbar />
           <Dashboard />
