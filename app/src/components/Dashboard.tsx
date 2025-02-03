@@ -37,20 +37,22 @@ const Dashboard = () => {
       <DragDropContext onDragEnd={handleDragEnd}>
          <Droppable droppableId='widget-container'>
             {(provided) => (
-               <div className='flex flex-wrap gap-2 justify-evenly transition-transform duration-300 ease-in-out' {...provided.droppableProps} ref={provided.innerRef}>
-                  {widgets.map((widget, index) => {
-                     return <Draggable key={widget.id} draggableId={widget.id} index={index}>
-                        {(provided) => (
-                           <div className='cursor-grab' {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-                              <Widget widget={widget} openModal={setOpenModal} removeWidget={handleRemoveWidget}/>
-                           </div>
-                        )}
-                     </Draggable>
-                  })}
-                  <div className='cursor-pointer'>
-                     <Widget widget={addWidget} openModal={setOpenModal} removeWidget={handleRemoveWidget}/>
+               <div className='flex items-center'>
+                  <div className='flex flex-wrap gap-2 transition-transform duration-300 ease-in-out' {...provided.droppableProps} ref={provided.innerRef}>
+                     {widgets.map((widget, index) => {
+                        return <Draggable key={widget.id} draggableId={widget.id} index={index}>
+                           {(provided) => (
+                              <div className='cursor-grab' {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+                                 <Widget widget={widget} openModal={setOpenModal} removeWidget={handleRemoveWidget}/>
+                              </div>
+                           )}
+                        </Draggable>
+                     })}
+                     <div className='cursor-pointer'>
+                        <Widget widget={addWidget} openModal={setOpenModal} removeWidget={handleRemoveWidget}/>
+                     </div>
+                     <AddWidgetModal isOpen={openModal} closeModal={() => setOpenModal(false)}/>
                   </div>
-                  <AddWidgetModal isOpen={openModal} closeModal={() => setOpenModal(false)}/>
                </div>
             )}
          </Droppable>

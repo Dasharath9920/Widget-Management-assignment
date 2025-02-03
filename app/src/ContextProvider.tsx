@@ -16,7 +16,13 @@ export const MyContext = createContext<{
 
 export const reducer = (state: StateType, action: ActionType): StateType => {
    if(action.type === Actions.UPDATE_WIDGETS) {
-      const widgetIds = (action.payload as WidgetType[]).map((widget: WidgetType) => widget.id);
+      const widgetIds = (action.payload as WidgetType[]).map((widget: WidgetType) => {
+         return {
+            id: widget.id,
+            width: widget.size!.width,
+            height: widget.size!.height
+         }
+      });
       const savedWidgets = JSON.stringify(widgetIds);
       localStorage.setItem(savedWidgetsKey,savedWidgets);
    } else {

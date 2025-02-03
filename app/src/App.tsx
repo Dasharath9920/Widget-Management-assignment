@@ -10,9 +10,19 @@ function App() {
   const { dispatch } = useContext(MyContext);
 
   const updateState = () => {
-    const savedWidgetIds = localStorage.getItem(savedWidgetsKey)? JSON.parse(localStorage.getItem(savedWidgetsKey)!): [];
-    const savedWidgets = widgets.filter((widget: WidgetType) => savedWidgetIds.some((widgetId: string) => widgetId === widget.id));
+    const savedWidgetData = localStorage.getItem(savedWidgetsKey)? JSON.parse(localStorage.getItem(savedWidgetsKey)!): [];
+
+    let savedWidgets: WidgetType[] = widgets.filter((widget: WidgetType) => savedWidgetData.some((_widget: WidgetType) => _widget.id === widget.id));
+
+    savedWidgets = savedWidgets.map((widget: WidgetType) => {
+      let savedWidget = savedWidgetData.find((savedWidget: WidgetType) => savedWidget.id === widget.id);
+      widget.size!.width = savedWidget.width;
+      widget.size!.height = savedWidget.height;
+      return widget;
+    })
     const savedTheme = localStorage.getItem(savedThemeKey)? JSON.parse(localStorage.getItem(savedThemeKey)!): Themes.LIGHT;
+
+
     dispatch({
       type: Actions.TOGGLE_THEME,
       payload: savedTheme
