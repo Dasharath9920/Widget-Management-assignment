@@ -20,17 +20,17 @@ export type ActionType = {
 
 export type WidgetType = {
    id: string,
-   type: string,
-   title: string,
-   position: {
+   type?: string,
+   title?: string,
+   position?: {
       x: number,
       y: number
    },
-   size: {
+   size?: {
       width: number,
       height: number
    },
-   data: any
+   data?: any
 }
 
 export const addWidget = {

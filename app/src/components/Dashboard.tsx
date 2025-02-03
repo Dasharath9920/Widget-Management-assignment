@@ -1,24 +1,31 @@
 import { useContext, useEffect, useState } from 'react'
-import widgetData from '../data';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import Widget from './Widget';
-import { addWidget } from '../constants';
+import { addWidget, Actions } from '../constants';
 import AddWidgetModal from './AddWidgetModal';
 import { MyContext } from '../ContextProvider';
 
 const Dashboard = () => {
-   const { state } = useContext(MyContext);
+   const { state, dispatch } = useContext(MyContext);
 
    const [widgets, setWidgets] = useState([...state.addedWidgets]);
    const [openModal, setOpenModal] = useState(false);
 
    const handleDragEnd = (data: any) => {
       if(!data.destination) return;
-      
+
       let newItems = [...widgets];
       const [movedItem] = newItems.splice(data.source.index,1);
       newItems.splice(data.destination.index,0,movedItem);
       setWidgets(newItems);
+   }
+
+   const handleRemoveWidget = (widgetId: string) => {
+      let newItems = state.addedWidgets.filter(widget => widget.id !== widgetId);
+      dispatch({
+         type: Actions.UPDATE_WIDGETS,
+         payload: newItems
+      })
    }
 
    useEffect(() => {
@@ -35,15 +42,15 @@ const Dashboard = () => {
                      return <Draggable key={widget.id} draggableId={widget.id} index={index}>
                         {(provided) => (
                            <div className='cursor-grab' {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-                              <Widget widget={widget} openModal={setOpenModal}/>
+                              <Widget widget={widget} openModal={setOpenModal} removeWidget={handleRemoveWidget}/>
                            </div>
                         )}
                      </Draggable>
                   })}
                   <div className='cursor-pointer'>
-                     <Widget widget={addWidget} openModal={setOpenModal}/>
+                     <Widget widget={addWidget} openModal={setOpenModal} removeWidget={handleRemoveWidget}/>
                   </div>
-                  <AddWidgetModal isOpen={openModal} closeModal={() => setOpenModal(false)} onAddWidget={() => console.log('')}/>
+                  <AddWidgetModal isOpen={openModal} closeModal={() => setOpenModal(false)}/>
                </div>
             )}
          </Droppable>

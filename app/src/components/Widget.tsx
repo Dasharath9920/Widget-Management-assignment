@@ -1,6 +1,8 @@
 import React from 'react'
+import WeatherWidget from './WeatherWidget';
+import { WidgetType } from '../constants';
 
-const Widget = ({widget, openModal}) => {
+const Widget = ({widget, openModal, removeWidget}: {widget: WidgetType, openModal: (shouldOpen: boolean) => void, removeWidget: (widgetId: string) => void}) => {
    const isAddButtonWidget: boolean = widget.id === 'add-widget';
 
    const openAddWidgetModal = () => {
@@ -9,9 +11,20 @@ const Widget = ({widget, openModal}) => {
       openModal(true);
    }
 
+   const Component: React.FC = () => {
+      switch(widget.id) {
+         case 'weather-widget': {
+            return <WeatherWidget widget={widget}/>
+         }
+         default:
+            return <>{widget.title}</>
+      }
+   }
+
   return (
-    <div className={`w-[120px] h-[120px] rounded-2xl text-blue-50 bg-blue-950 p-3 ${isAddButtonWidget? 'flex items-center justify-center text-5xl transition-all duration-200 ease-in-out hover:text-6xl': ''}`} onClick={openAddWidgetModal}>
-      {isAddButtonWidget ? '+': widget.title}
+    <div className={`relative w-[120px] h-[120px] rounded-2xl text-blue-50 bg-blue-950 p-3 md:w-[150px] md:h-[150px] lg:w-[180px] lg:h-[180px] group ${isAddButtonWidget? 'flex items-center justify-center text-5xl transition-all duration-200 ease-in-out hover:text-6xl': ''}`} onClick={openAddWidgetModal}>
+      <button className={`absolute opacity-30 right-3 top-3 leading-none rounded-2xl w-3 h-1 bg-red-400 font-bold text-3xl transition-transform duration-200 cursor-pointer ease-in-out group-hover:opacity-90 group-hover:scale-150 ${isAddButtonWidget? 'hidden': ''}`} onClick={() => removeWidget(widget.id)}></button>
+      {isAddButtonWidget ? '+': <Component />}
    </div>
   )
 }
