@@ -140,31 +140,6 @@ const widgets = [
          "unreadEmails": 12,
          "latestEmail": { "subject": "Meeting Update", "sender": "John Doe" }
        }
-     },
-     {
-       "id": "budget-widget",
-       "type": "budget",
-       "title": "Budget Planner",
-       "position": { "x": 0, "y": 6 },
-       "size": { "width": 120, "height": 120 },
-       "data": {
-         "monthlyBudget": "₹50,000",
-         "spent": "₹30,000",
-         "remaining": "₹20,000"
-       }
-     },
-     {
-       "id": "reminders-widget",
-       "type": "reminders",
-       "title": "Reminders",
-       "position": { "x": 2, "y": 6 },
-       "size": { "width": 120, "height": 120 },
-       "data": {
-         "reminders": [
-           { "time": "08:00 AM", "title": "Morning Exercise" },
-           { "time": "01:00 PM", "title": "Team Meeting" }
-         ]
-       }
      }
    ];
 

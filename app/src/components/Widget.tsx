@@ -7,6 +7,10 @@ import StocksWidget from './StocksWidget';
 import CryptoWidget from './CryptoWidget';
 import TodoWidget from './TodoWidget';
 import NotesWidget from './NotesWidget';
+import FinanceWidget from './FinanceWidget';
+import FitnessWidget from './FitnessWidget';
+import MusicWidget from './MusicWidget';
+import EmailWidget from './EmailWidget';
 
 const Widget = ({widget, openModal, removeWidget}: {widget: WidgetType, openModal: (shouldOpen: boolean) => void, removeWidget: (widgetId: string) => void}) => {
    const isAddButtonWidget: boolean = widget.id === 'add-widget';
@@ -39,6 +43,18 @@ const Widget = ({widget, openModal, removeWidget}: {widget: WidgetType, openModa
          }
          case 'notes-widget': {
             return <NotesWidget widget={widget} />
+         }
+         case 'finance-widget': {
+            return <FinanceWidget widget={widget} />
+         }
+         case 'fitness-widget': {
+            return <FitnessWidget widget={widget} />
+         }
+         case 'music-widget': {
+            return <MusicWidget widget={widget} />
+         }
+         case 'email-widget': {
+            return <EmailWidget widget={widget} />
          }
          default:
             return <>{widget.title}</>
