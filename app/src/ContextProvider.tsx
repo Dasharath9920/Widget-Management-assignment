@@ -1,6 +1,5 @@
 import { createContext, ReactNode, useReducer } from "react";
-import { Actions, ActionType, StateType, Themes, WidgetType } from "./constants";
-
+import { Actions, ActionType, savedThemeKey, savedWidgetsKey, StateType, Themes, WidgetType } from "./constants";
 
 export const initialState: StateType = {
    theme: Themes.LIGHT,
@@ -16,6 +15,14 @@ export const MyContext = createContext<{
 });
 
 export const reducer = (state: StateType, action: ActionType): StateType => {
+   if(action.type === Actions.UPDATE_WIDGETS) {
+      const widgetIds = (action.payload as WidgetType[]).map((widget: WidgetType) => widget.id);
+      const savedWidgets = JSON.stringify(widgetIds);
+      localStorage.setItem(savedWidgetsKey,savedWidgets);
+   } else {
+      const savedTheme = JSON.stringify(action.payload);
+      localStorage.setItem(savedThemeKey, savedTheme);
+   }
    switch(action.type) {
       case Actions.TOGGLE_THEME: {
          return {...state, theme: action.payload === Themes.LIGHT? Themes.DARK: Themes.LIGHT};

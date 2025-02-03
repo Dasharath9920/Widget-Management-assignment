@@ -3,6 +3,9 @@ export type StateType = {
    addedWidgets: Array<WidgetType>
 }
 
+export const savedWidgetsKey : string = 'savedWidgets';
+export const savedThemeKey : string = 'savedTheme';
+
 export enum Themes {
    LIGHT = 'light',
    DARK = 'dark'

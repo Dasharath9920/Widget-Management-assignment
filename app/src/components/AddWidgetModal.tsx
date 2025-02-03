@@ -28,7 +28,7 @@ const AddWidgetModal = ({ isOpen, closeModal}: { isOpen: boolean, closeModal: ()
           <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
             <div className={`sm:flex sm:items-start ${filteredWidgets.length? '': 'hidden'}`}>
               <h1 className='text-base text-center font-semibold text-gray-900 mb-5'>Select widget</h1>
-              <ul className='flex flex-wrap gap-2 max-h-[300px] overflow-y-scroll p-1'>
+              <ul className='flex flex-wrap justify-evenly gap-2 max-h-[300px] overflow-y-scroll p-1'>
                 {filteredWidgets.map((widget) => (
                     <li key={widget.id} className='relative p-2 rounded-xl bg-blue-950 text-white text-[0.7rem] h-[80px] w-[80px] cursor-pointer transition-transform duration-300 ease-in-out hover:scale-102 group' onClick={() => addWidget(widget)}>
                       <span className='group-hover:opacity-20'>{widget.title}</span>
