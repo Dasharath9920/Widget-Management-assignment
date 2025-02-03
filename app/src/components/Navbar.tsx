@@ -1,5 +1,4 @@
 import { useContext } from 'react';
-import logo from '../assets/wm-logo.png';
 import { MyContext } from '../ContextProvider';
 import { Actions, Themes } from '../constants';
 const Navbar = () => {

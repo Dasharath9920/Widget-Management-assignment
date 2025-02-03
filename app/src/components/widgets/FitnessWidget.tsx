@@ -1,4 +1,4 @@
-import { WidgetType } from '../constants';
+import { WidgetType } from '../../constants';
 
 const FitnessWidget = ({ widget }: { widget: WidgetType }) => {
   const progress = Math.min((widget.data.steps / widget.data.goal) * 100, 100); // Ensures max 100%

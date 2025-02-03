@@ -1,4 +1,4 @@
-import { WidgetType } from '../constants';
+import { WidgetType } from '../../constants';
 
 const CalendarWidget = ({ widget }: { widget: WidgetType }) => {
   return (

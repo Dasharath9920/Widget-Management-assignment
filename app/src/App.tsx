@@ -1,5 +1,4 @@
 import { useContext, useEffect } from 'react'
-import './App.css'
 import Dashboard from './components/Dashboard'
 import Navbar from './components/Navbar'
 import { MyContext } from './ContextProvider'

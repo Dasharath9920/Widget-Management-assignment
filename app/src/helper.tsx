@@ -1,15 +1,15 @@
+import CalendarWidget from "./components/widgets/CalenderWidget";
+import CryptoWidget from "./components/widgets/CryptoWidget";
+import EmailWidget from "./components/widgets/EmailWidget";
+import FinanceWidget from "./components/widgets/FinanceWidget";
+import FitnessWidget from "./components/widgets/FitnessWidget";
+import MusicWidget from "./components/widgets/MusicWidget";
+import NewsWidget from "./components/widgets/NewsWidget";
+import NotesWidget from "./components/widgets/NotesWidget";
+import StocksWidget from "./components/widgets/StocksWidget";
+import TodoWidget from "./components/widgets/TodoWidget";
+import WeatherWidget from "./components/widgets/WeatherWidget";
 import { WidgetType } from "./constants";
-import CalendarWidget from './components/CalenderWidget';
-import NewsWidget from './components/NewsWidget';
-import StocksWidget from './components/StocksWidget';
-import CryptoWidget from './components/CryptoWidget';
-import TodoWidget from './components/TodoWidget';
-import NotesWidget from './components/NotesWidget';
-import FinanceWidget from './components/FinanceWidget';
-import FitnessWidget from './components/FitnessWidget';
-import MusicWidget from './components/MusicWidget';
-import EmailWidget from './components/EmailWidget';
-import WeatherWidget from "./components/WeatherWidget";
 
 export const getWidgetComponent = (widget: WidgetType): JSX.Element => {
    switch(widget.id) {

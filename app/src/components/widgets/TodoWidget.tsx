@@ -1,4 +1,4 @@
-import { WidgetType } from '../constants';
+import { WidgetType } from '../../constants';
 import { useState } from 'react';
 
 const ToDoWidget = ({ widget }: { widget: WidgetType }) => {

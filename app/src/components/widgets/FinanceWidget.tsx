@@ -1,4 +1,4 @@
-import { WidgetType } from '../constants';
+import { WidgetType } from '../../constants';
 
 const FinanceWidget = ({ widget }: { widget: WidgetType }) => {
   return (
